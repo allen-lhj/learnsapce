@@ -1,0 +1,82 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+}
+.nav{
+    display: flex;
+    /* 主轴和侧轴居中 */
+    justify-content: center;
+    align-items: center;
+    height: 44px;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+.nav a {
+    color: #fff;
+    /* 弹性布局直接子元素，所以a标签可以设置宽度 */
+    width: 100px;
+    text-align: center;
+}
+.nav .logo {
+    background-image: url(img/logo.svg);
+    height: 44px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.nav .search {
+    height: 44px;
+    background-image: url(img/search.svg);
+    background-size: 18px 88px;
+    background-repeat: no-repeat;
+    background-position: 40px 0;
+}
+.nav .buy {
+    background-image: url(img/buy.svg);
+    height: 44px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.toggleBtn {
+    height: 44px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.toggleBtn .line {
+    height: 1px;
+    width: 18px;
+    margin-top: 6px;
+    background-color: #fff;
+    display: none;
+}
+@media screen and (max-width:768px) {
+    .toggleBtn .line{
+        display: block;
+        margin-left: 10px;
+    }
+    .nav {
+        justify-content: space-between;
+    }
+    .nav .text, .nav .search {
+        display: none;
+    }
+    .nav a {
+        width: 50px;
+    }
+    .nav .toggleBtn {
+        order: 1;
+    }
+    .logo {
+        order: 2;
+    }
+    .buy {
+        order: 3;
+    }
+    #choose:checked~.toggleBtn .line:nth-child(1) {
+        transform: rotate(45deg);
+        transform-origin: left;
+    }
+}

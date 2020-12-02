@@ -1,0 +1,8 @@
+.idea/
+*ode_modules/
+logs/
+.svn
+*.iml
+npm-debug.log
+.DS_Store
+.vscode

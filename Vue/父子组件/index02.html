@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <!-- 使用props和$emit进行父子组件传值 -->
+    <div id="app">
+        <div>
+            <ul>
+                <!-- @change是事件 chschool是方法，触发事件调用方法 -->
+                <school v-for="item,index in schoolList" @change="chSchool" :index="index" :key="index" :school-name="item"></school>
+            </ul>
+            <h2>选中的学校：{{chooseSchool}}</h2>
+        </div>
+    </div>
+    <script>
+        //产品组件
+        Vue.component("school",{
+            props:['schoolName', 'index'],
+                template: `
+                       <li>
+                        <h3>学校名称：{{ schoolName }}</h3>
+                        <button @click="choose(schoolName)">选择学校</button>
+                      </li>`,
+                      methods: {
+                          choose(schoolName){
+                              this.$emit('change',schoolName)
+                          }
+                      }
+                      
+        })
+
+
+
+        var app = new Vue({
+            el: '#app',
+            data:{
+                schoolList: ['一中','二中','三中'],
+                chooseSchool: ''
+            },
+            methods: {
+                chSchool(data){
+                    this.chooseSchool = data
+                }
+            }
+        })
+    </script>
+</body>
+</html>

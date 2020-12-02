@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+  <div id="counter">
+    <ol>
+        <todo-item v-for="item in groceryList" :todo="item" :key="item.id" />
+    </ol>
+  </div>
+
+  <script>
+    const Counter = {
+      data() {
+        return {
+            groceryList: [
+                { id: 0, text: 'Vegetables' },
+                { id: 1, text: 'Cheese' },
+                { id: 2, text: 'Whatever else humans are supposed to eat' }
+            ]
+        }
+      }
+    }
+    
+    const app = Vue.createApp(Counter)
+
+    app.component('todo-item', {
+        props: ['todo'],
+        template: `<li>{{ todo.text }}</li>`
+    })
+    app.mount('#counter')
+  </script>
+</body>
+</html>

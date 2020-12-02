@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="echarts.min.js"></script>
+    <style>
+        #main {width: 700px;height: 500px;margin: 0 auto;}
+    </style>
+</head>
+<body>
+    <div id="main"></div>
+    <script>
+        // 初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+    var socket = new WebSocket('ws://localhost:3001')
+    socket.onopen = function() {
+        console.log('客户端连接服务器成功')
+    }
+        socket.onmessage = function(e) {
+            var data = JSON.parse(e.data)
+            setOption(data)
+
+        }
+    function setOption(data) {
+        option = {
+        title: {
+            text: '动态数据'
+        },
+        xAxis: {
+            type: 'category',
+            axisLabel: {
+              rotate: 10,
+              margin: 20
+            },
+            splitLine: {
+                show: false
+            },
+            //x轴出现位置
+            boundaryGap: false,
+        },
+        yAxis: {
+            type: 'value',
+            boundaryGap: false,
+            //是否显示分隔线
+            splitLine: {
+                show: false
+            },
+            position: 'left'
+        },
+        series: [
+            {
+            name: '模拟数据',
+            type: 'line',
+            showSymbol: false,
+            hoverAnimation: false,
+            data: data
+        }
+    ]
+    };
+    myChart.setOption(option)
+    }
+</script>
+</body>
+</html>

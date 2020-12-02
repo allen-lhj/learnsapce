@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../vue.js"></script>
+</head>
+<body>
+  <h1>Hello World</h1>
+  <hr>
+  <div id="app">
+    <div v-huanjun="color">{{num}}</div>
+    <p><button @click="add">ADD</button></p>
+  </div>
+  <script>
+    Vue.directive('huanjun', function(el, binding) {
+      console.log(el)
+      el.style = "color:" + binding.value
+    })
+    var app = new Vue({
+      el: '#app',
+      data: {
+        num: 10,
+        color: 'green'
+      },
+      methods: {
+        add: function() {
+          this.num++
+        }
+      }
+    })
+  </script>
+</body>
+</html>

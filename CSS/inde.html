@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        :root{box-sizing: border-box;}
+        *,::before,::after{box-sizing: inherit;}
+        body{margin: 0;}
+        a{text-decoration: none;color: #000;}
+        ul,ol{list-style: none;}
+        nav {display: flex; justify-content: space-between;font-size: 20px;width: 70%;margin: 0 auto;}
+        .nav_list {display: flex;}
+        .nav_list li {margin-left: 1em;}
+        .button {display: flex;justify-content: space-between;}
+        .button li a{display: block;font-size: 16px;padding: .3em 1.5em .3em 1.5em;border: 1px solid #000;border-radius: 10px;}
+        .button li a:hover {background-color: #000;color: #fff;}       
+    </style>
+</head>
+<body>
+    <nav>
+            <ul class="nav_list">
+                <li class="logo"><a href="">logo</a></li>
+                <li><a href="">首页</a></li>
+                <li><a href="">快速录入</a></li>
+                <li><a href="">连接设备</a></li>
+                <li><a href="">认知评估</a></li>
+                <li><a href="">帮助</a></li>
+            </ul>
+            <ul class="button">
+                <li><a href="">登陆</a></li>
+                <li><a href="">注册</a></li>
+            </ul>
+    </nav>
+</body>
+</html>

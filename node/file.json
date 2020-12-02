@@ -1,0 +1,42 @@
+{
+  "items":[
+    {
+      "id": 1001,
+      "username": "admin1",
+      "password": 1
+    },
+    {
+      "id": 1002,
+      "username": "admin2",
+      "password": 2
+    },
+    {
+      "id": 1003,
+      "username": "admin3",
+      "password": 3
+    },
+    {
+      "id": 1004,
+      "username": "admin4",
+      "password": 4
+    }
+  ],
+  "cp": [
+    {
+      "id":1001,
+      "state": "q"
+    },
+    {
+      "id":1002,
+      "state":"w"
+    },
+    {
+      "id":1002,
+      "state":"e"
+    },
+    {
+      "id":1002,
+      "state":"r"
+    }
+  ]
+}

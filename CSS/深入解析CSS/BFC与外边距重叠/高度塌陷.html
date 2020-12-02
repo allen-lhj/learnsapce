@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高度塌陷</title>
+    <style>
+        .container {
+          border: 10px solid red;
+          overflow: hidden;
+        }
+        .inner {
+          background: #08BDEB;
+          height: 100px;
+          width: 100px;
+          float: left;
+        }
+      </style>
+</head>
+<body>
+    <!-- 内部元素浮动后，父盒子造成高度塌陷，给父盒子设置BFC‘overflow:hidden’ -->
+    <div class="container">
+        <div class="inner"></div>
+      </div>
+  
+</body>
+</html>

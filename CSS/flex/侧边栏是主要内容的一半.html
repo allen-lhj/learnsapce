@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            display: flex;
+            
+        }
+        .left{
+            background-color: #61dafb;
+            flex: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .box{height: 500px;background-color: green;}
+        .box1{flex: 1;background-color: #61dafb;}
+        .main{
+            flex: 2;
+            background: #da70d6;
+            height: 100%;
+        }
+        .ad{
+            width: 200px;
+            background: #ffa500;
+            height: 100%;
+        }
+        
+        
+    </style>
+</head>
+<body>
+<div class="left">
+    <h1>侧边栏</h1>
+    <div class="box">box</div>
+    <div class="box1">box1</div>
+</div>
+<div class="main">
+    <h1>主要内容</h1>
+</div>
+<div class="ad">
+    <h1>广告</h1>
+</div>
+</body>
+</html>

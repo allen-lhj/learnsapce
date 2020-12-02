@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 定义一个请求news的方法
+    function getNews(url) {
+      //创建一个promise对象
+      let promise = new Promise((resolve, reject) => {
+        //初始化promise状态为pending
+        //启动异步任务，发起Ajax请求
+        //1.创建一个 XMLHttpRequest 类型的对象
+        let request = new XMLHttpRequest();
+        // 4. 指定 xhr 状态变化事件处理函数
+        request.onreadystatechange = function () {
+          if (request.readyState === 4) {
+            if (request.status === 200) {
+              let news = request.response;
+              resolve(news);
+            } else {
+              reject('请求失败了...');
+            }
+          }
+        };
+        request.responseType = 'json'; //设置返回的数据类型
+        // 2. 打开与一个网址之间的连接
+        request.open("GET", url); //规定请求的方法，创建链接
+        // 3. 通过链接发送一次请求
+        request.send(); //发送
+      })
+      // 只有将promise返回，才可以调用then方法
+      return promise;
+    };
+    // 调用getNews，获取新闻内容，其中一个字节为评论内容的地址
+    getNews('http://localhost:3000/news?id=2')
+      .then((news) => {
+        // 获取到新闻内容
+        console.log(news);
+        // document.write(JSON.stringify(news));
+        // 获取新闻内容中的评论地址
+        console.log('http://localhost:3000' + news.commentsUrl);
+        // 递归获取新闻评论内容，并且返回promise对象，以便链式then方法。
+        return getNews('http://localhost:3000' + news.commentsUrl);
+      }, (error) => {
+        alert(error);
+      })
+      .then((comments) => { // then方法可以链式编程
+        console.log(comments);
+        // 把新闻的评论部分已json的格式打印出来显示
+        document.write('<br><br><br><br><br>' + JSON.stringify(comments));
+      }, (error) => {
+        alert(error);
+      });
+    </script>
+</body>
+</html>

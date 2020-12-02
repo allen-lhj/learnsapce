@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scaleable=no">
+    <style>
+        body{
+            display: flex;
+        }
+        .d1{
+            width: 25%;
+            height: 200px;
+            background-color: skyblue;
+            border: 1px solid green;
+        }
+        /* 设定小于600px像素时候的样式 */
+        @media only screen and (max-width: 600px) {
+            .d1 {
+                width: 100%;
+                background-color: slateblue;
+
+            }
+        }
+        @media screen and (min-width: 1200px) {
+            .d1 {
+                width: 30%;
+                background-color: pink;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 大屏幕PC端的时候，d1占据50%的宽度
+    小屏幕移动端的时候，d1占据100%的宽度 -->
+    <div class="d1"></div>
+    <div class="d1"></div>
+    <div class="d1"></div>
+    <div class="d1"></div>
+</body>
+</html>

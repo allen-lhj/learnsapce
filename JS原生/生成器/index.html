@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator</title>
+</head>
+<body>
+    <script>
+        function* helloworld(){
+            yield 'hello'
+            yield 'world'
+            yield 1
+            yield 2
+            yield 3
+            yield 4
+            return 'ending'
+        }
+        var hw = helloworld()
+        // console.log(hw.next())
+        // console.log(hw.next())
+        // console.log(hw.next())
+        for(let i of hw){
+            console.log(i)
+        }//for of可以直接遍历生成器
+    </script>
+</body>
+</html>

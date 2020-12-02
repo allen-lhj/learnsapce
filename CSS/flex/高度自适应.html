@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html, body{
+  height: 100%;
+}
+.container{
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+.head{
+  height: 20vh;
+  background-color: lightblue;
+}
+.foot{
+  background-color: gray;
+}
+.content{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.content .top{display: flex;justify-content: space-between;}
+.content .center{display: flex;justify-content: space-between;}
+.line {background: grey;margin: 20px;}
+.map {background: orange;margin: 20px;}
+.pie {background: slateblue;margin: 20px;}
+.ls {background: steelblue;margin: 20px;}
+.list {background-color: green;margin: 20px;}
+.bar {background-color: palegoldenrodmargin: 20px;}
+.content {font-size: 50px;}
+    </style>
+</head>
+<body>
+    <div class="container">
+		<div class="head">
+            
+        </div>
+		<div class="content">
+          <div class="top">
+            <div class="line">折线</div>
+            <div class="map" >地图</div>
+            <div class="pie">饼</div>
+          </div>
+            <div class="center">
+                <div class="ls">扇形</div>
+                <div class="list" >提示表</div>
+                <div class="bar">bar</div>
+            </div>
+        </div>
+		<div class="foot">This is foot</div>
+	</div>
+</body>
+</html>

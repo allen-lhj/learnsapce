@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //es5获取参数
+        // function data() {
+        //     console.log(arguments)
+        // }
+        // data('v','a','r')
+        //ES6 rest参数
+        // function data(...args) {
+        //     console.log(args);
+        // }
+        // data('v','a','r')
+        // rest参数必须放在最后,Uncaught SyntaxError: Rest parameter must be last formal parameter
+        // function fn(a, b, ...args) {
+        //     console.log(a)
+        //     console.log(b)
+        //     console.log(args)
+        // }
+        // fn(1,2,3,4,5)
+
+        //拓展运算符将数组转换为【逗号】分割的【参数序列】
+        // const tfboy = ['易洋千玺', '王俊凯', '王源']
+        // function fn() {
+        //     console.log(arguments)
+        // }
+        // fn(...tfboy)
+        
+        //数组的克隆
+        const sanzhihua = ['E', 'G', 'M']
+        const clone = [...sanzhihua]
+        console.log(clone)//['E', 'G', 'M'],在没有引用类型的前提下
+        //将伪数组转为真正的数组，假设页面中有三个div
+        const divs = document.querySelectorAll('div')
+        console.log(divs)//Object
+        const divArr = [...divs]//[div,div,div]
+    </script>
+</body>
+</html>

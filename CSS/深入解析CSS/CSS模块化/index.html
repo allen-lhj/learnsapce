@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div class="message">
+        Save successful
+    </div>
+    <button class="success" onclick="success">成功</button>
+    <button class="fail" onclick="fail">失败</button>
+    <script>
+        var message = document.querySelector('.message')
+        var success = document.querySelector('.success')
+        var fail = document.querySelector('.fail')
+        success.onclick = function() {
+            message.classList.add("class", "message--success");
+            message.classList.remove("class","message--warning");
+        }
+        fail.onclick = ()=>{
+            message.classList.add("class", "message--warning")
+            message.classList.remove("class", "message--success")
+        }
+    </script>
+</body>
+</html>

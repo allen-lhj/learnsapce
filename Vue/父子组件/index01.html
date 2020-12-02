@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <ul>
+                <product-com v-for="item in proList" :product="item"></product-com>
+            </ul>
+        </div>
+    </div>
+    <script>
+        //产品组件
+        Vue.component("product-com",{
+            props: ['product'],
+                template: `
+                       <li>
+                        <h3>产品名称：{{ product.title }}</h3>
+                        <h4>产品描述：{{ product.brief }}</h4>
+                        <p>产品价格：{{ product.price }}</p>
+                      </li>`
+        })
+
+
+
+        var app = new Vue({
+            el: '#app',
+            data:{
+                proList:[
+                    {
+                        title: '产品1',
+                        price: '10',
+                        brief: '产品描述'
+                    },
+                    {
+                        title: '产品2',
+                        price: '7',
+                        brief: '产品描述'
+                    },
+                    {
+                        title: '产品3',
+                        price: '12',
+                        brief: '产品描述'
+                    },
+                    {
+                        title: '产品4',
+                        price: '13',
+                        brief: '产品描述'
+                    },
+                ]
+            }
+        })
+    </script>
+</body>
+</html>
