@@ -102,7 +102,7 @@ main {
       top: 0.2em;
       left: 0.2em;
       display: block;
-      content: "\2261";
+      content: '\2261';
       text-indent: 0;
 }
   .menu-dropdown {
