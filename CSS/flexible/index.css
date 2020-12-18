@@ -1,0 +1,16 @@
+body{
+  min-width: 320px;
+  /* max-width: 750px; */
+  margin: 0 auto;
+  height: 1200px;
+}
+/* @media screen and (min-width:750) {
+  html {
+    font-style: 37.5px !important;
+  }
+} */
+div {
+  width: 2.666667rem;
+  height: 2.666667rem;
+  background-color: aqua;
+}
