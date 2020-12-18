@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div {
+            width: 7.5rem;
+            height: 1rem;
+            color: #fff;
+            font-size: 0.16rem;
+            background: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+<script>
+    (function () {
+        function resize() {
+            // 获取屏幕的宽度，此时屏幕的宽度为width+'px'
+            var width = document.documentElement.clientWidth
+            var designWidth = 750
+            // 用屏幕的宽度除以设计搞的宽度在乘上100，那么屏幕750px，html字体就是100px，此时
+            // 1rem为100px，7.5rem就是750px充满整个屏幕
+            // 设计稿中宽度为20px，那么就用20/750,看20px占750的几分之几
+            var currentFontSize = (width / designWidth) * 100
+            document.querySelector('html').style.fontSize = currentFontSize + 'px'
+            console.log(width)
+            var fs = document.querySelector('div').style.fontSize
+            console.log(fs)
+        }
+        window.onresize = function () {
+            resize()
+        }
+        document.addEventListener('DOMContentLoaded', resize)
+    }())
+</script>
+<div>哈哈哈</div>
+</body>
+</html>
