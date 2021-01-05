@@ -55,10 +55,52 @@ class Stack {
     }
 }
 const stack = new Stack()
-stack.push(5)
-stack.push(8)
-stack.push(80)
-console.log(stack.toString())
+// stack.push(5)
+// sta
+// ck.push(8)
+// stack.push(80)
+// console.log(stack.toString())
 // 返回对象所有自由属性的名称
-console.log(Object.getOwnPropertyNames(stack))
-console.log(Object.keys(stack))
+// console.log(Object.getOwnPropertyNames(stack))
+// console.log(Object.keys(stack))
+
+// function decimalToBinary(decNumber) {
+//     const remStack = new Stack()
+//     let number = decNumber
+//     let rem
+//     let binaryString = ''
+//
+//     // number 对2取余数，在除2在对2取余数
+//     while (number > 0) {
+//         rem = Math.floor(number % 2)
+//         remStack.push(rem)
+//         number = Math.floor(number / 2)
+//     }
+//
+//     while (!remStack.isEmpty()) {
+//         binaryString += remStack.pop().toString()
+//     }
+//     return binaryString
+// }
+
+function decimalToBinary(decNumber, base) {
+    const remStack = new Stack()
+    const digits = '0123456789ABCDEFGHIGKLMNOPQRSTUVWXYZ'
+    let number = decNumber
+    let rem
+    let baseString = ''
+
+    // number 对2取余数，在除2在对2取余数
+    while (number > 0) {
+        rem = Math.floor(number % base)
+        remStack.push(rem)
+        number = Math.floor(number / base)
+    }
+
+    while (!remStack.isEmpty()) {
+        baseString += digits[remStack.pop()]
+    }
+    return baseString
+}
+console.log(decimalToBinary(100345,2)) // 11101001
+console.log(decimalToBinary(100345,16))
