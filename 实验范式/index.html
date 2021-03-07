@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {box-sizing: border-box;}
+        .f1-box {width: 810px;margin: 0 auto;display: flex;flex-direction: row;flex-wrap: wrap;font-weight: bolder;}
+        .box {border: 1px solid #42b983;width: 200px;height: 150px;}
+        .btn {position: fixed;left: 10%;top: 30%;}
+        .text-char {font-size:50px;text-align:center;margin-top:20%;}
+        .f2-box {width: 810px;margin: 0 auto;display: none;flex-direction: row;flex-wrap: wrap;font-weight: bolder;}
+        .inputstyle{width:97%;height:98%;font-size:100px}
+        .back {position:fixed;top:0;left:0;zoom:1;background-repeat:no-repeat;width:100%;height:100%;background-image: url("pic.jpg");background-size:100% 100%; }
+    </style>
+</head>
+<body>
+<div class="back"></div>
+<button class="btn" onclick="numberBegin()">开始</button>
+<div class="f1-box">
+    <div class="square1 box"></div>
+    <div class="square2 box"></div>
+    <div class="square3 box"></div>
+    <div class="square4 box"></div>
+    <div class="square5 box"></div>
+    <div class="square6 box"></div>
+    <div class="square7 box"></div>
+    <div class="square8 box"></div>
+    <div class="square9 box"></div>
+    <div class="square10 box"></div>
+    <div class="square11 box"></div>
+    <div class="square12 box"></div>
+    <div class="square13 box"></div>
+    <div class="square14 box"></div>
+    <div class="square15 box"></div>
+    <div class="square16 box"></div>
+</div>
+<div class="f2-box">
+    <div class="box"><input id="input1" class="inputstyle" type="text"></div>
+    <div class="box"><input id="input2" class="inputstyle" type="text"></div>
+    <div class="box"><input id="input3" class="inputstyle" type="text"></div>
+    <div class="box"><input id="input4" class="inputstyle" type="text"></div>
+    <div class="box"><input id="input5" class="inputstyle" type="text"></div>
+    <div class="box"><input id="input6" class="inputstyle" type="text"></div>
+    <div class="box"><input id="input7" class="inputstyle" type="text"></div>
+    <div class="box"><input id="input8" class="inputstyle" type="text"></div>
+    <div class="box"><input id="input9" class="inputstyle" type="text"></div>
+    <div class="box"><input id="input10" class="inputstyle" type="text"></div>
+    <div class="box"><input id="input11" class="inputstyle" type="text"></div>
+    <div class="box"><input id="input12" class="inputstyle" type="text"></div>
+    <div class="box"><input id="input13" class="inputstyle" type="text"></div>
+    <div class="box"><input id="input14" class="inputstyle" type="text"></div>
+    <div class="box"><input id="input15" class="inputstyle" type="text"></div>
+    <div class="box"><input id="input16" class="inputstyle" type="text"></div>
+</div>
+<script>
+    function insertStr(soure, start, newStr){
+        return soure.slice(0, start) + newStr + soure.slice(start);
+    }
+
+    function Code() {
+        var yuancode = 'AEIOU',
+            fucode = 'BCDFGHJKLMNPQRSTVWXYZ',
+            ychar = '',
+            fchar = '',
+            result = '';
+            var ycode_index = Math.round(Math.random()*4);
+            var ychar = yuancode[ycode_index];
+            for (var i = 0; i < 2; i++) {
+                var fcode_index = Math.round(Math.random()*20);
+                var fchar = fucode[fcode_index];
+                if (result.indexOf(fchar) > -1) {
+                    i --;
+                    continue;
+                }
+                result += fchar
+            }
+            return insertStr(result, 1, ychar)
+    }
+
+    function numberBegin() {
+        var maxTime = 60;
+        var back = document.querySelector('.back')
+        setTimeout(()=> {
+            back.style.display = 'none'
+            var charArr = []
+            for (let i = 1; i < 17; i++) {
+                var box = document.querySelector('.square'+ i)
+                var text = Code()
+                charArr.push(text)
+                box.innerHTML = `<div class="text-char">${charArr[i-1]}</div>`
+            }
+
+            const countDownTimer = setInterval(() => {
+                if (maxTime >= 0) {
+                    -- maxTime;
+                    console.log(maxTime)
+                }
+                if (maxTime < 0) {
+                    clearInterval(countDownTimer)
+                    var allBox = document.querySelector('.f1-box')
+                    allBox.style.display = 'none'
+                    back.style.display = 'block'
+                    console.log(charArr)
+                    setTimeout(() => {
+                        window.location.href = './shizi.html'
+                    },30000)
+                }
+            },1000)
+        },60000)
+
+    }
+</script>
+</body>
+</html>
