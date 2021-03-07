@@ -1,16 +1,39 @@
-let arr = [{state:5, focus: 0, fatigue: 0}, {state: 1, focus:10, fatigue: 20}, {state: 4, focus:10, fatigue: 20}]
-var state = 0
-var focus = 0
-var vag = 0
 
-var status = arr.filter(item => item.state < 5)
-
-if (status.length !== 0) {
-    avg = status.length
-    var sum = status.reduce((pre, curr) => ({state: pre.state + curr.state, focus: pre.focus + curr.focus, fatigue: pre.state + curr.fatigue}) )
-    state = sum.state /avg
+function refreshCode() {
+    var code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',//62个字符 随机选择4位
+        char = '',
+        result = '';
+    for (var i = 0; i < 3; i++) {
+        var code_index = Math.round(Math.random()*23);
+        var char = code[code_index];
+        if (result.toUpperCase().indexOf(char.toUpperCase()) > -1) {
+            i --;
+            continue;//终止本轮循环 进行下一轮
+        }
+        result += char;
+    }
+    console.log(result)
 }
 
-console.log(status)
-console.log(status.length)
-console.log(state)
+function Code() {
+    var yuancode = 'AEIOU',
+        fucode = 'BCDFGHJKLMNPQRSTVWXYZ',
+        ychar = '',
+        fchar = '',
+        result = '';
+    var ycode_index = Math.round(Math.random()*4);
+    var ychar = yuancode[ycode_index];
+    for (var i = 0; i < 2; i++) {
+        var fcode_index = Math.round(Math.random()*20);
+        var fchar = fucode[fcode_index];
+        if (result.indexOf(fchar) > -1) {
+            i --;
+            continue;
+        }
+        result += fchar
+    }
+    console.log(result.inser)
+}
+setInterval(() => {
+    Code()
+},2000)

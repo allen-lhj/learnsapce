@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button>connect</button>
+<script>
+    function bluetoothConnect() {
+        console.log('Requesting Bluetooth Device...');
+        navigator.bluetooth.requestDevice({
+            filters: [{ services: ['0000ff00-0000-1000-8000-00805f9b34fb']}]
+        }).then(device => {
+            console.log('device')
+            return device.gatt.connect();
+        }).then(server => {
+            return server.getPrimaryService('0000ff00-0000-1000-8000-00805f9b34fb')
+        }).then(service => {
+            console.log('service')
+            console.log(service)
+            return service.getCharacteristic('0000ff01-0000-1000-8000-00805f9b34fb')
+        }).then(characteristics => {
+            console.log('characteristics')
+            console.log(characteristics)
+            myCharacteristic = characteristics
+            myCharacteristic.addEventListener('characteristicvaluechanged', test)
+            return myCharacteristic.startNotifications()
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+    function test(event) {
+        if (myCharacteristic) {
+            myCharacteristic.startNotifications()
+                .then(note => {
+                    var bufferData = note.value.buffer
+                    data = ab2hex(bufferData)
+                    console.log(data)
+                    // console.log(note.value.buffer);
+                })
+                .catch(error => {
+                    console.log("Argh!" + error);
+                });
+        }
+    }
+
+    function ab2hex(buffer) {
+        let hexArr = Array.prototype.map.call(
+            new Uint8Array(buffer),
+            function (bit) {
+                return ('00' + bit.toString(16)).slice(-2)
+            }
+        )
+        return hexArr.join('');
+    }
+    document.querySelector('button').addEventListener('click', bluetoothConnect);
+</script>
+</body>
+</html>
