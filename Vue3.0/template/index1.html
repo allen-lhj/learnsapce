@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+  <div id="root"></div>
+  
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          num: 1
+        }
+      },
+      methods: {
+        addNum() {
+          this.num +=1
+        }
+      },
+      template: `
+      <div>
+        <test :content="num" @add-num="addNum" />
+      </div>      
+      `
+    })
+
+    app.component('test', {
+      props: ['content'],
+      methods: {
+        handleClick() {
+          this.$emit('addNum')
+        }
+      },
+      template: `<div @click="this.handleClick">{{content}}</div>`
+    })
+    
+
+    const vm = app.mount('#root')
+  </script>
+</body>
+</html>

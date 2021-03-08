@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./jquery-3.5.1.min.js"></script>
+  <style>
+    .lsc {
+      width: 100px;
+      height: 100px;
+      border: 1px solid saddlebrown;
+    }
+  </style>
+</head>
+<body>
+  <div class="lsc"></div>
+  <script>
+      var t = 10
+      $('.lsc').click(function() {
+        var inter = setInterval(function() {
+          func()
+        }, 1000)
+        if(t<=0) {
+        clearInterval(inter)
+      }
+      })
+    function func() {
+      t-=1
+      $('.lsc').text(t)
+    }
+  </script>
+</body>
+</html>
