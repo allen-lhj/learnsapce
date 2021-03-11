@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+ul, ol, dl {
+  list-style: none;
+}
+body {
+  box-sizing: border-box;
+  background-color: #2185c5;
+}
+header, main, footer {
+  width:782px;
+  margin: 0 auto;
+}
+header .banner {
+  width: 782px;
+  height: 150px;
+  background: url(./images/banner.jpg);
+}
+nav {
+  height: 33px;
+  background: url(./images/nav-bg.png) repeat-x;
+}
+nav ul {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 5px;
+}
+main {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2px;
+}
+.aside-left {
+  display: flex;
+  flex-direction: column;
+}
+.weather-query dt {
+  width: 200px;
+  height: 47px;
+  background: url(./images/weather.jpg);
+}

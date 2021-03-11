@@ -1,3 +1,12 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-02-26 10:01:16
+ * @LastEditTime: 2021-03-09 16:38:03
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /learnSpace/webBluetoothApi/bluethooth server.html
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +28,7 @@
         }).then(service => {
             console.log('service')
             console.log(service)
+            
             return service.getCharacteristic('0000ff01-0000-1000-8000-00805f9b34fb')
         }).then(characteristics => {
             console.log('characteristics')
@@ -54,6 +64,7 @@
         )
         return hexArr.join('');
     }
+    
     document.querySelector('button').addEventListener('click', bluetoothConnect);
 </script>
 </body>

@@ -1,13 +1,15 @@
-var arr1 = ["MOP", "WEY", "HAR", "FIZ", "FOW", "KEM", "MES", "NUD", "RAN"]
-var arr2 = ["MOP", "WEY", "HAR", "FIQ", "FVW", "KEM", "MAS", "NDD", "RSS"]
-
-var tureAnswer = 0
-for(i=0;i< 9;i++) {
-  if (arr1[i] == arr2[i]) {
-    tureAnswer += 1
-    console.log('true')
-  } else {
-    console.log(false)
-  }
-}
-console.log(tureAnswer)
+// function jishu(a) {
+//   result = a & 1
+//   if (result == 0) {
+//     console.log('你输入的数字为偶数')
+//     return
+//   }else {
+//     console.log('你输入的数字为奇数')
+//     return
+//   }
+// }
+// jishu(10)
+new Promise(() => setTimeout(console.log, 0, 'executor'));
+setTimeout(console.log, 0, 'promise initialized')
+let p = new Promise((resolve, reject) => setTimeout(resolve, 1000))
+setTimeout(console.log, 0, p)

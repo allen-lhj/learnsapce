@@ -70,10 +70,9 @@
         }).then(service => {
             console.log('service')
             console.log(service)
-            
             return service.getCharacteristic('0000ff01-0000-1000-8000-00805f9b34fb')
         }).then(characteristics => {
-            // console.log(characteristics)
+            console.log(characteristics)
             myCharacteristic = characteristics
             myCharacteristic.addEventListener('characteristicvaluechanged', test)
             return myCharacteristic.startNotifications()
@@ -87,8 +86,8 @@
                 .then(note => {
                     var bufferData = note.value.buffer
                     data = ab2hex(bufferData)
-                    console.log(data)
                     testData+=data
+                    console.log(testData)
                 })
                 .catch(error => {
                     console.log("Argh!" + error);
@@ -98,7 +97,9 @@
     // click start
     function numberBegin() {
         console.log(myCharacteristic)
-        
+
+        //没有在开始时监听，蓝牙连接数据就开始记录，所以在点开始时，将数据清空重新开始记录
+        testData = ''
         var maxTime = 60; // 60
         var test = 60;
         const testTime = setInterval(()=> {
@@ -122,12 +123,13 @@
                     -- maxTime;
                     console.log(maxTime)
                 }
+                
                 if (maxTime === 0) {
                     clearInterval(countDownTimer)
                     $('.f1-box').css('display', 'none')
                     $('.black-ground').css('display', 'block')
                     console.log(requestArr)
-                    // 30s look gray background
+                    
                     setTimeout(() => {
                         $('.black-ground').css('display', 'none')
                         $('.f2-box').css('display', 'flex')

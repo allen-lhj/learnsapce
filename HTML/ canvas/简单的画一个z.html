@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function $$(id) {
+      return document.getElementById(id)
+    }
+    window.onload = function() {
+      var cnv = $$('canvas')
+      var cxt = cnv.getContext('2d')
+      // 绘画的起点
+      cxt.moveTo(50,50)
+      // 绘画的终点，下一个lineTo会从上一个lineTo开始画
+      cxt.lineTo(100,50)
+      cxt.lineTo(50,100)
+      cxt.lineTo(100,100)
+      // stroke开始画
+      cxt.stroke()
+    }
+  </script>
+  <canvas id="canvas" width="200" height="150" style="border: 1px solid sandybrown;"></canvas>
+</body>
+</html>
