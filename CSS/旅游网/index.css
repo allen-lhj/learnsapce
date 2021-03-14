@@ -1,13 +1,28 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+.bd {
+  border: 1px solid #fff;
 }
 ul, ol, dl {
   list-style: none;
 }
+article, .aside-left, .right-place, footer {
+  border: 4px solid #fff;
+  background: #5da5ea;
+}
+
+.weather-query dd, .map li, .xiaochi dd {
+  display: list-item;
+  list-style: inside url(./images/icon1.gif);
+}
 body {
   box-sizing: border-box;
   background-color: #2185c5;
+  font-size: 14px;
+  color: #fff;
 }
 header, main, footer {
   width:782px;
@@ -31,13 +46,104 @@ main {
   display: flex;
   justify-content: space-between;
   margin-top: 2px;
+  box-sizing: border-box;
 }
 .aside-left {
   display: flex;
   flex-direction: column;
+  width: 200px;
+  background-color: #5da5ea;
 }
 .weather-query dt {
-  width: 200px;
-  height: 47px;
+  width: 190px;
+  height: 41px;
+  margin-bottom: 5px;
   background: url(./images/weather.jpg);
+}
+
+.weather-query dd {
+  font-size: 0.8em;
+  line-height: 1.5;
+  text-align: center;
+  background-color: #2185c5;
+  /* background: url(./images/icon1.gif) no-repeat;
+  background-position: 5% 50%; */
+  display: list-item;
+  list-style: inside url(./images/icon1.gif);
+}
+.today dt {
+  background: #badcfe url(./images/icon2.gif) no-repeat left center;
+}
+.today dd {
+  margin: 5px;
+  text-align: center;
+  font-size: 12px;
+}
+.today dd figure img{
+  border: 1px solid #fff;
+}
+article {
+  background-color: #fff;
+}
+article .center-photo {
+  width: 390px;
+  height: 260px;
+  background: url(./images/ghost.jpg);
+}
+article .beauty {
+  width: 375px; 
+  margin: 8px auto 0;
+}
+article .beauty .title1 {
+  width: 157px;
+  height: 41px;
+  background: url(./images/picture_h1.gif);
+  border-bottom: 1px solid #cbcbcb;
+}
+article .pic-ul {
+  padding-top: 5px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+article .title2 {
+  width: 157px;
+  height: 41px;
+  background: url(./images/route_h1.gif);
+  margin-top: 5px;
+}
+.map {
+  color: #004d89;
+  font-size: 12px;
+  text-align: left;
+  padding-left: 16px;
+}
+.xinjiang dd {
+  margin-top: 5px;
+  width: 173px;
+  text-align: center;
+}
+.today dt, .xinjiang dt, .xiaochi dt, .binguan dt {
+  background:  #badcfe url(./images/icon2.gif) no-repeat left center;
+  background-position: 4% 50%;
+  font-size: 12px;
+  font-weight: 500;
+  color: #003872;
+  text-indent: 1.5em;
+}
+.xiaochi dd, .binguan dd {
+  border-bottom: 1px dashed #fff;
+  font-size: 14px;
+  text-indent: 1.5em;
+  margin-bottom: 3px;
+}
+.xiaochi dd:nth-of-type(1), .binguan dd:nth-of-type(1) {
+  margin-top: 10px;
+}
+footer p {
+  text-align: center;
+  color: #003872;
+}
+footer p span {
+  color: #fff;
 }
