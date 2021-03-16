@@ -12,54 +12,106 @@
         .time {width: 20px;height: 30px;border:1px solid sienna;}
         .f1-box, .f2-box {width: 900px;margin: 0 auto;display: flex;flex-direction: row;flex-wrap: wrap;font-weight: bolder;}
         .f2-box {display: none;}
-        .box {border: 1px solid #42b983;width: 290px;height: 250px;}
-        .text-char {font-size:50px;text-align:center;margin-top:20%;}
-        .inputstyle{width:99%;height:98%;font-size:100px}
+        .box {border: 1px solid #42b983;width: 33%;height: 250px;}
+        .text-char {font-size:50px;text-align:center;margin-top:25%;}
+        .inputstyle{width:99%;height:98%;font-size:100px;border: none;text-align: center;}
         .black-ground {position:fixed;top:0;left:0;zoom:1;background-repeat:no-repeat;width:100%;height:100%;background-image: url("pic.jpg");background-size:100% 100%; }
+        .answer {width: 200px;height:30px;}
+        /* 弹窗 */
+        .hide{display:none;}
+        .show{display:block;}
+
+        .mask {background: #fff;width: 300px;height: 200px;position: fixed;top: 20%;left: 40%;border: 5px solid skyblue;z-index: 9999;}
+        .prompt_cont,.prompt_title {text-align: center;color: #000;}
+        .btn-box {display: flex;justify-content: space-between;width: 80%;margin: 0 auto;padding-top: 30px;}
+        .prompt_no, .prompt_sure {border: 2px solid darkblue;font-weight: bold;}
     </style>
 </head>
 <body>
-<div class="black-ground"></div>
-<div class="handleSpace">
-    <button class="connect-bluetooth" onclick="connectBluetooth()">连接设备</button>
-    <button class="handle-btn" onclick="numberBegin()">开始</button>
-    <div class="time"></div>
-    <button class="handle-btn" onclick="checkAnswer()">填写完毕</button>
-    <button class="handle-btn" onclick="downloadReport()">生成文件</button>
-</div>
-<div class="f1-box">
-    <div class="square1 box"></div>
-    <div class="square2 box"></div>
-    <div class="square3 box"></div>
-    <div class="square4 box"></div>
-    <div class="square5 box"></div>
-    <div class="square6 box"></div>
-    <div class="square7 box"></div>
-    <div class="square8 box"></div>
-    <div class="square9 box"></div>
-</div>
-<div class="f2-box">
-    <div class="box"><input id="input1" class="inputstyle" type="text"></div>
-    <div class="box"><input id="input2" class="inputstyle" type="text"></div>
-    <div class="box"><input id="input3" class="inputstyle" type="text"></div>
-    <div class="box"><input id="input4" class="inputstyle" type="text"></div>
-    <div class="box"><input id="input5" class="inputstyle" type="text"></div>
-    <div class="box"><input id="input6" class="inputstyle" type="text"></div>
-    <div class="box"><input id="input7" class="inputstyle" type="text"></div>
-    <div class="box"><input id="input8" class="inputstyle" type="text"></div>
-    <div class="box"><input id="input9" class="inputstyle" type="text"></div>
-</div>
+    <div class="mask hide">
+        <div class="prompt_title">
+            <h3>提示</h3>
+        </div>
+        <div class="prompt_cont">
+            <p class="prompt_text">是否连接第二台设备！</p>
+            <div class="btn-box">
+              <span class="prompt_no">取消</span>
+              <span class="prompt_sure">确定</span>
+            </div>
+        </div>
+  </div>
+    <div class="black-ground"></div>
+    <div class="handleSpace">
+        <input type="text" class="nameinput" placeholder="请输入姓名" name="NAME">
+        <button class="connect-bluetooth" onclick="connectBluetooth()">连接设备</button>
+        <button class="handle-btn" onclick="testBegin(60000, 30000, 60000)">开始</button>
+        <div class="time"></div>
+        <div class="answer"></div>
+    </div>
+    <div class="f1-box">
+        <div class="square1 box"></div>
+        <div class="square2 box"></div>
+        <div class="square3 box"></div>
+        <div class="square4 box"></div>
+        <div class="square5 box"></div>
+        <div class="square6 box"></div>
+        <div class="square7 box"></div>
+        <div class="square8 box"></div>
+        <div class="square9 box"></div>
+    </div>
+    <div class="f2-box">
+        <div class="box"><input id="input1" class="inputstyle" maxlength="3" type="text"></div>
+        <div class="box"><input id="input2" class="inputstyle" maxlength="3" type="text"></div>
+        <div class="box"><input id="input3" class="inputstyle" maxlength="3" type="text"></div>
+        <div class="box"><input id="input4" class="inputstyle" maxlength="3" type="text"></div>
+        <div class="box"><input id="input5" class="inputstyle" maxlength="3" type="text"></div>
+        <div class="box"><input id="input6" class="inputstyle" maxlength="3" type="text"></div>
+        <div class="box"><input id="input7" class="inputstyle" maxlength="3" type="text"></div>
+        <div class="box"><input id="input8" class="inputstyle" maxlength="3" type="text"></div>
+        <div class="box"><input id="input9" class="inputstyle" maxlength="3" type="text"></div>
+    </div>
 <script>
     var answer = []
     var requestArr = []
     var rightAnswer = 0
-    var myCharacteristic
-    var testData = '';
-    function downloadReport() {
-        var blob = new Blob([this.string2buffer(testData)], {type: 'application/octet-stream'})
-        saveAs(blob, 'report.eeg')
+    var myCharacteristic;
+    var myCharacteristic2;
+    var testData = ''
+    var testData2 = ''
+    var isStartRecording = false
+    var name = ''
+    $('.prompt_no').click(function() {
+        $('.mask').removeClass('show').addClass('hide')
+    })
+    $('.prompt_sure').click(function() {
+        $('.mask').removeClass('show').addClass('hide')
+        navigator.bluetooth.requestDevice({
+            filters: [{ services: ['0000ff00-0000-1000-8000-00805f9b34fb']}]
+        }).then(device => {
+            console.log('device')
+            return device.gatt.connect();
+        }).then(server => {
+            return server.getPrimaryService('0000ff00-0000-1000-8000-00805f9b34fb')
+        }).then(service => {
+            console.log('service')
+            console.log(service)
+            return service.getCharacteristic('0000ff01-0000-1000-8000-00805f9b34fb')
+        }).then(characteristics => {
+            console.log(characteristics)
+            myCharacteristic2 = characteristics
+            myCharacteristic2.addEventListener('characteristicvaluechanged', test2)
+            return myCharacteristic2.startNotifications()
+        }).catch(error => {
+            console.log(error)
+        })
+    })
+    function downloadReport(name) {
+        var blob = new Blob([this.string2buffer(testData)], {type: 'application/octet-stream'})    
+        var blob2 = new Blob([this.string2buffer(testData2)], {type: 'application/octet-stream'})
+        saveAs(blob, `${name+ '01'}.eeg`)
+        saveAs(blob2, `${name + '02'}.eeg`)
     }
-    function connectBluetooth() {
+    function connectBluetooth() {      
         navigator.bluetooth.requestDevice({
             filters: [{ services: ['0000ff00-0000-1000-8000-00805f9b34fb']}]
         }).then(device => {
@@ -74,6 +126,7 @@
         }).then(characteristics => {
             console.log(characteristics)
             myCharacteristic = characteristics
+            $('.mask').removeClass('hide').addClass('show')
             myCharacteristic.addEventListener('characteristicvaluechanged', test)
             return myCharacteristic.startNotifications()
         }).catch(error => {
@@ -84,10 +137,28 @@
         if (myCharacteristic) {
             myCharacteristic.startNotifications()
                 .then(note => {
-                    var bufferData = note.value.buffer
-                    data = ab2hex(bufferData)
-                    testData+=data
-                    console.log(testData)
+                    if (isStartRecording) {
+                        var bufferData = note.value.buffer
+                        data = ab2hex(bufferData)
+                        console.log('device1: ' + data)
+                        testData+=data
+                    }
+                })
+                .catch(error => {
+                    console.log("Argh!" + error);
+                });
+        }
+    }
+    function test2(event) {
+        if (myCharacteristic2) {
+            myCharacteristic2.startNotifications()
+                .then(note => {
+                    if (isStartRecording) {
+                        var bufferData2 = note.value.buffer
+                        data2 = ab2hex(bufferData2)
+                        console.log('device2: ' + data2)
+                        testData2+=data2
+                    }
                 })
                 .catch(error => {
                     console.log("Argh!" + error);
@@ -95,13 +166,8 @@
         }
     }
     // click start
-    function numberBegin() {
-        console.log(myCharacteristic)
-
-        //没有在开始时监听，蓝牙连接数据就开始记录，所以在点开始时，将数据清空重新开始记录
-        testData = ''
-        var maxTime = 60; // 60
-        var test = 60;
+    function webTime(second) {
+        var test = second;
         const testTime = setInterval(()=> {
             test--
             $('.time').text(test)
@@ -109,8 +175,16 @@
                 clearInterval(testTime)
             }
         }, 1000)
+    }
+    function testBegin(firstGrayBackground, secondGrayBackground, checkAnswerTime) {
+        $(".handle-btn").attr("disabled","true")
+        isStartRecording = true
+        name = $('.nameinput').val()
+        var maxTime = firstGrayBackground / 1000; // 60
+        webTime(60)
         // gray background will hide after 60s 
         setTimeout(()=> {
+            webTime(60)
             $('.black-ground').css('display', 'none')
             for (let i = 1; i < 10; i++) {
                 var text = Code()
@@ -121,26 +195,27 @@
             const countDownTimer = setInterval(() => {
                 if (maxTime > 0) {
                     -- maxTime;
-                    console.log(maxTime)
-                }
-                
+                }             
                 if (maxTime === 0) {
                     clearInterval(countDownTimer)
+                    webTime(30)
                     $('.f1-box').css('display', 'none')
                     $('.black-ground').css('display', 'block')
-                    console.log(requestArr)
-                    
                     setTimeout(() => {
+                        webTime(60)
                         $('.black-ground').css('display', 'none')
                         $('.f2-box').css('display', 'flex')
-                    },30000)
-                    // 30000
+                        setTimeout(() => {
+                            isStartRecording = false
+                            checkAnswer()
+                            downloadReport(name)
+                        }, checkAnswerTime)
+                    }, secondGrayBackground)
                 }
             },1000)
-        },60000)
-//60000
+        }, firstGrayBackground)
     }
-    // Generate random letters
+    // 生成随机字符
     function Code() {
         var yuancode = 'AEIOU',
             fucode = 'BCDFGHJKLMNPQRSTVWXYZ',
@@ -167,23 +242,24 @@
 
     function checkAnswer() {
         myCharacteristic.removeEventListener('characteristicvaluechanged', test)
-        // var blob = new Blob([this.string2buffer(writeData)], {type: 'application/octet-stream'})
-        $('input').each(function(index,item) {
+        $('.inputstyle').each(function(index,item) {
             answer.push($(this).val())
         })
         console.log(answer)
-        console.log(contrastCode(answer, requestArr))
-        contrastCode(answer, requestArr)
+        console.log(requestArr)
+        var count = contrastCode(answer, requestArr)
+        $('.answer').text(`你答对了道${count}题目`)
     }
     // checks two code array
     function contrastCode(arr1,arr2) {
         for (let i = 0; i < 9; i++) {
             if (arr1[i] == arr2[i]) {
-                rightAnswer++
+                rightAnswer+=1
             }
         }
         return rightAnswer
     }
+    // 字符串转为ArrayBuffer
     function string2buffer(str) {
         let val = ""
         if(!str) return;
@@ -200,6 +276,7 @@
         return parseInt(h, 16)
         })).buffer
   }
+  // buffer转字符串
   function ab2hex(buffer) {
         let hexArr = Array.prototype.map.call(
             new Uint8Array(buffer),
