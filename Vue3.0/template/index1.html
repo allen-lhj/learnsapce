@@ -13,32 +13,32 @@
     const app = Vue.createApp({
       data() {
         return {
-          num: 1
-        }
-      },
-      methods: {
-        addNum() {
-          this.num +=1
+          needButton: '我需要一个按钮',
+          noNeed: '不太需要'
         }
       },
       template: `
-      <div>
-        <test :content="num" @add-num="addNum" />
-      </div>      
+        <myform :text="needButton">
+          <button>按钮</button>
+          <hr />
+        </myform>
+        <myform :text="noNeed" />
       `
     })
 
-    app.component('test', {
-      props: ['content'],
+    app.component('myform', {
+      props: ['text'],
       methods: {
         handleClick() {
-          this.$emit('addNum')
+          alert(123)
         }
       },
-      template: `<div @click="this.handleClick">{{content}}</div>`
+      template: `<div>
+        <input />
+        <div @click="handleClick">{{text}}</div>
+        <slot />
+        </div>`
     })
-    
-
     const vm = app.mount('#root')
   </script>
 </body>

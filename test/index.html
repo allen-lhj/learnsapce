@@ -8,8 +8,9 @@
     <style>
         :root {box-sizing: border-box;}
         *,::before,::after{box-sizing: inherit;}
-        .handleSpace {position: fixed;left:0;top:0;}
-        .time {width: 20px;height: 30px;border:1px solid sienna;}
+        .handleSpace {position: fixed;left:0;top:0;display: flex;flex-direction: column;}
+        .handle-btn {width: 100px;height: 34px;border-radius: 4;margin-top: 10px;}
+        .time {width: 30px;height: 40px;border:3px solid skyblue;text-align: center;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS';padding-top: 5px;}
         .f1-box, .f2-box {width: 900px;margin: 0 auto;display: flex;flex-direction: row;flex-wrap: wrap;font-weight: bolder;}
         .f2-box {display: none;}
         .box {border: 1px solid #42b983;width: 33%;height: 250px;}
@@ -20,7 +21,6 @@
         /* 弹窗 */
         .hide{display:none;}
         .show{display:block;}
-
         .mask {background: #fff;width: 300px;height: 200px;position: fixed;top: 20%;left: 40%;border: 5px solid skyblue;z-index: 9999;}
         .prompt_cont,.prompt_title {text-align: center;color: #000;}
         .btn-box {display: flex;justify-content: space-between;width: 80%;margin: 0 auto;padding-top: 30px;}
@@ -42,9 +42,12 @@
   </div>
     <div class="black-ground"></div>
     <div class="handleSpace">
+        <span>测试前请先输入姓名</span>
         <input type="text" class="nameinput" placeholder="请输入姓名" name="NAME">
-        <button class="connect-bluetooth" onclick="connectBluetooth()">连接设备</button>
-        <button class="handle-btn" onclick="testBegin(60000, 30000, 60000)">开始</button>
+        <button class="connect-bluetooth handle-btn handle-hide" onclick="connectBluetooth()">连接设备</button>
+        <button class="handle-btn handle-hide" onclick="testBegin(60000, 30000, 60000)">开始</button>
+        <button class="handle-btn" onclick="testAgain()">再次测试</button>
+        <button class="connect-bluetooth handle-btn" onclick="disConnect()">断开蓝牙</button>
         <div class="time"></div>
         <div class="answer"></div>
     </div>
@@ -71,15 +74,28 @@
         <div class="box"><input id="input9" class="inputstyle" maxlength="3" type="text"></div>
     </div>
 <script>
-    var answer = []
-    var requestArr = []
+    var answer = [], requestArr = []
     var rightAnswer = 0
-    var myCharacteristic;
-    var myCharacteristic2;
-    var testData = ''
-    var testData2 = ''
+    var myCharacteristic, myCharacteristic2;
+    var testData = '', testData2 = '', name = ''
     var isStartRecording = false
-    var name = ''
+    var bluetoothDevice1 = null;
+    var bluetoothDevice2 = null;
+    var testRounds = 1;
+
+    function testAgain() {
+        testData1 = '';
+        testData2 = '';
+        rightAnswer = 0;
+        answer = [];
+        requestArr = [];
+        testRounds = 2;
+
+        $('.answer').text('')
+        $('.inputstyle').val('')
+        $('.black-ground').css('display', 'block')
+        testBegin(60000, 30000, 60000)
+    }
     $('.prompt_no').click(function() {
         $('.mask').removeClass('show').addClass('hide')
     })
@@ -89,6 +105,7 @@
             filters: [{ services: ['0000ff00-0000-1000-8000-00805f9b34fb']}]
         }).then(device => {
             console.log('device')
+            bluetoothDevice2 = device
             return device.gatt.connect();
         }).then(server => {
             return server.getPrimaryService('0000ff00-0000-1000-8000-00805f9b34fb')
@@ -105,17 +122,42 @@
             console.log(error)
         })
     })
+    function onDisconnected(event) {
+        const device = event.target;
+        alert(`Device ${device.name} is disconnected.`);
+    }
+
+    function disConnect() {
+        if (testRounds === 2) {
+            bluetoothDevice1.gatt.disconnect();
+            bluetoothDevice2.gatt.disconnect();
+        } else {
+            bluetoothDevice1.gatt.disconnect();
+        }
+    }
     function downloadReport(name) {
-        var blob = new Blob([this.string2buffer(testData)], {type: 'application/octet-stream'})    
-        var blob2 = new Blob([this.string2buffer(testData2)], {type: 'application/octet-stream'})
-        saveAs(blob, `${name+ '01'}.eeg`)
-        saveAs(blob2, `${name + '02'}.eeg`)
+        if (testRounds === 1) {
+            var blob = new Blob([this.string2buffer(testData)], {type: 'application/octet-stream'}) 
+            saveAs(blob, `${name+ '-1轮01' + '-' + rightAnswer}.eeg`)
+            if (testData2.length > 0) {
+                var blob2 = new Blob([this.string2buffer(testData2)], {type: 'application/octet-stream'})
+                saveAs(blob2, `${name + '-1轮02'+ '-'+ rightAnswer}.eeg`)
+            }
+        } else {
+            var blob = new Blob([this.string2buffer(testData)], {type: 'application/octet-stream'}) 
+            saveAs(blob, `${name+ '-2轮01' + '-' + rightAnswer}.eeg`)
+            if (testData2.length > 0) {
+                var blob2 = new Blob([this.string2buffer(testData2)], {type: 'application/octet-stream'})
+                saveAs(blob2, `${name + '-2轮02'+ '-'+ rightAnswer}.eeg`)
+            }
+        } 
     }
     function connectBluetooth() {      
         navigator.bluetooth.requestDevice({
             filters: [{ services: ['0000ff00-0000-1000-8000-00805f9b34fb']}]
         }).then(device => {
             console.log('device')
+            bluetoothDevice1 = device;
             return device.gatt.connect();
         }).then(server => {
             return server.getPrimaryService('0000ff00-0000-1000-8000-00805f9b34fb')
@@ -165,19 +207,9 @@
                 });
         }
     }
-    // click start
-    function webTime(second) {
-        var test = second;
-        const testTime = setInterval(()=> {
-            test--
-            $('.time').text(test)
-            if (test === 0) {
-                clearInterval(testTime)
-            }
-        }, 1000)
-    }
+    
     function testBegin(firstGrayBackground, secondGrayBackground, checkAnswerTime) {
-        $(".handle-btn").attr("disabled","true")
+        $(".handle-hide").attr("disabled","true")
         isStartRecording = true
         name = $('.nameinput').val()
         var maxTime = firstGrayBackground / 1000; // 60
@@ -189,6 +221,9 @@
             for (let i = 1; i < 10; i++) {
                 var text = Code()
                 requestArr.push(text)
+                // 2 rounds ui set
+                $('.f1-box').css('display', 'flex')
+                $('.f2-box').css('display', 'none')
                 $('.square'+i).html(`<div class="text-char">${requestArr[i-1]}</div>`)
             }
             // 60s code hide look gray background 
@@ -241,7 +276,6 @@
     }
 
     function checkAnswer() {
-        myCharacteristic.removeEventListener('characteristicvaluechanged', test)
         $('.inputstyle').each(function(index,item) {
             answer.push($(this).val())
         })
@@ -253,7 +287,7 @@
     // checks two code array
     function contrastCode(arr1,arr2) {
         for (let i = 0; i < 9; i++) {
-            if (arr1[i] == arr2[i]) {
+            if (arr1[i].toUpperCase() == arr2[i]) {
                 rightAnswer+=1
             }
         }
@@ -285,6 +319,17 @@
             }
         )
         return hexArr.join('');
+    }
+    // click start square second
+    function webTime(second) {
+        var test = second;
+        const testTime = setInterval(()=> {
+            test--
+            $('.time').text(test)
+            if (test === 0) {
+                clearInterval(testTime)
+            }
+        }, 1000)
     }
 </script>
 </body>

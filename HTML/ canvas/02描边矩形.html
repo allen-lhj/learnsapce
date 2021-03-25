@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function $$(id) {
+      return document.getElementById(id)
+    }
+    window.onload = function() {
+      var cnv = $$('canvas')
+      var cxt = cnv.getContext('2d')
+      cxt.strokeStyle = '#ff0000'
+      //画一个矩形
+      cxt.strokeRect(50,50,80,80) // x, y, width, height
+      cxt.fillStyle= '#fa0'
+      cxt.fillRect(100,100, 50, 50)
+      // stroke开始画
+      // cxt.stroke()
+    }
+  </script>
+  <canvas id="canvas" width="200" height="150" style="border: 1px solid sandybrown;"></canvas>
+</body>
+</html>

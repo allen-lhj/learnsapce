@@ -9,7 +9,10 @@
 //   }
 // }
 // jishu(10)
-new Promise(() => setTimeout(console.log, 0, 'executor'));
-setTimeout(console.log, 0, 'promise initialized')
-let p = new Promise((resolve, reject) => setTimeout(resolve, 1000))
-setTimeout(console.log, 0, p)
+// new Promise(() => setTimeout(console.log, 0, 'executor'));
+// setTimeout(console.log, 0, 'promise initialized')
+
+
+let p = new Promise((resolve, reject) => setTimeout(resolve, 1000, 8))
+setTimeout(console.log, 3000, p)
+
