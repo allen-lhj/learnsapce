@@ -1,0 +1,47 @@
+<!--
+ * @Autor: lhj
+ * @Date: 2021-03-26 00:12:59
+ * @LastEditTime: 2021-03-26 00:23:21
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script>
+    const app = Vue.createApp({
+      methods: {
+        handleChange() {
+          //..
+        }
+      },
+      template: `
+      <child app="app" @change="handleChange" />      
+      `
+    })
+    app.component('child', {
+      template: `
+      <div @click="handleClick">child</div>      
+      `,
+      setup(props, context) {
+       const {attrs, slots, emit} = context
+       console.log(attrs) //父组件传递的props属性没有通过props接收
+       //可以在attrs访问None-props属性
+       function handleClick() {
+         emit('change')
+       }
+       return {handleClick}
+      }
+    })
+    
+    const vm = app.mount('#root')
+  </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!--
+ * @Autor: lhj
+ * @Date: 2021-03-25 23:53:53
+ * @LastEditTime: 2021-03-26 00:13:16
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script>
+    const app = Vue.createApp({
+      template: `
+      <div>{{name}}</div>      
+      `,
+      setup(props, context) {
+        const {ref} = Vue
+        // proxy将 'dell'变成proxy({value: 'dell'}) 这样的响应式引用
+        const obj = reactive({name: 'dell'})
+        setTimeout(() => {
+          obj.name = 'lee'
+        }, 2000)
+        name: proxy({name: 'lee'})
+        const { name } = toRefs(obj)
+        return { name }
+      }
+    })
+    
+    const vm = app.mount('#root')
+  </script>
+</body>
+</html>

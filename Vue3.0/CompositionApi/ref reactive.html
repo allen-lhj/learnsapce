@@ -1,0 +1,43 @@
+<!--
+ * @Autor: lhj
+ * @Date: 2021-03-25 23:08:05
+ * @LastEditTime: 2021-03-25 23:59:26
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script>
+    const app = Vue.createApp({
+      template: `
+      <div>{{name}}</div>      
+      <div>{{nameobj[0]}}</div>      
+      <div>{{nameobjcopy[0]}}</div>      
+      `,
+      setup(props, context) {
+        const {ref, reactive, readonly} = Vue
+        // proxy将 'dell'变成proxy({value: 'dell'}) 这样的响应式引用
+        let name = ref('dell')
+        const nameobj  = reactive([123])
+        const nameobjcopy  = readonly(nameobj)
+        setTimeout(() => {
+          name.value = 'lee'
+          nameobj[0] = 456
+          nameobjcopy[0] = 789
+        }, 2000)
+        return { name, nameobj,nameobjcopy }
+      }
+    })
+
+    
+    const vm = app.mount('#root')
+  </script>
+</body>
+</html>
