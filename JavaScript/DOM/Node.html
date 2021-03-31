@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p id="js">JavaScript</p>
+  <div id="list">
+    <p id="java">Java</p>
+    <p id="python">Python</p>
+    <p id="scheme">Scheme</p>
+</div>
+  
+</body>
+<script>
+  var
+    js = document.getElementById('js'),
+    list = document.getElementById('list');
+    list.appendChild(js);
+  let script = document.createElement('script')
+  script.appendChild(document.createTextNode('function satHi(){alert("hi")}'))
+  document.body.appendChild(script)
+</script>
+</html>
