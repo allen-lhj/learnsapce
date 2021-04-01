@@ -25,3 +25,4 @@ let b = new B('wangfei', 25)
 console.log(b.colors) // [ 'red', 'blue', 'pink' ]
 console.log(b.sayName()) //Im wangfei
 console.log(b.sayAge()) //25
+console.log(b.age)
