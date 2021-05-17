@@ -1,0 +1,56 @@
+<!--
+ * @Autor: lhj
+ * @Date: 2021-05-11 16:48:34
+ * @LastEditTime: 2021-05-14 16:54:39
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #sel {
+      width: 100px;
+    }
+  </style>
+</head>
+<body>
+  <select name="" id="sel">选择基站</select>
+  <button id="btn">点击</button>
+  <button id="btn1">点击2</button>
+  <script>
+    var sele = document.getElementById('sel')
+    setTimeout(() => {
+      var newOption = document.createElement('Option')
+      newOption.text = 123
+      sele.add(newOption)
+    }, 2000)
+    // var data = [{mac: '1.2.3.33'},{mac: '1.20.98'},{mac: '0.09.77.67'}]
+    // for(let i = 0; i < data.length; i++) {
+    // var newOption = document.createElement('Option')
+    //   newOption.text = data[i].mac;
+    //   newOption.value = data[i].mac;
+    //   sele.add(newOption)
+    // }
+    // var btn = document.getElementById('btn')
+    // btn.onclick = function() {
+    //   console.log(123)
+    //   var index = sele.selectedIndex
+    //   var value = sele.options[index].value
+    //   console.log(index)
+    //   console.log(value)
+    // }
+    // var btn2 = document.getElementById('btn1')
+    // btn2.onclick = function() {
+    //   console.log(sele.length)
+    //   var seled = '1.20.98'
+    //   for (let i = 0; i < sele.length; i++) {
+    //     if (sele.options[i].value == seled) {
+    //       sele.options[i].selected = true
+    //     }
+    //   }
+    // }
+  </script>
+</body>
+</html>
